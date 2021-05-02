@@ -19,7 +19,6 @@ public class FIFO implements Replacement
     private int faults;
     private int frames;
     
-    
     public FIFO()
     {
         arr = new ArrayList();
@@ -45,8 +44,7 @@ public class FIFO implements Replacement
             }
             else
             {
-//                sc = new Scanner(new File("reference strings/ReferenceString.txt"));
-                sc = new Scanner(new File("reference strings/test.txt"));
+                sc = new Scanner(new File("reference strings/ReferenceString.txt"));
             }
             while(sc.hasNext())
             {
@@ -153,13 +151,13 @@ public class FIFO implements Replacement
             {
                 hits.add(i);
             }
-            System.out.print("  " + ref.get(i) + "  ");
+            System.out.print(" " + ref.get(i) + " ");
         }
         System.out.println();
         reformat();
         for(int i = 0; i < ref.size(); ++i)
         {
-            System.out.print("-----");
+            System.out.print("---");
         }
         System.out.println();
         for(int i = 0; i < frames; ++i)
@@ -168,18 +166,18 @@ public class FIFO implements Replacement
             {
                 if(arr.get(i).get(j) == -1)
                 {
-                    System.out.print("     ");
+                    System.out.print("   ");
                 }
                 else
                 {
-                    System.out.print("  " + arr.get(i).get(j) + "  ");
+                    System.out.print(" " + arr.get(i).get(j) + " ");
                 }
             }
             System.out.println();
         }
         for(int i = 0; i < ref.size(); ++i)
         {
-            System.out.print("-----");
+            System.out.print("---");
         }
         System.out.println();
         for(int i = 0; i < ref.size(); ++i)
@@ -188,12 +186,12 @@ public class FIFO implements Replacement
             {
                 if(i == hits.get(0))
                 {
-                    System.out.print("  X  ");
+                    System.out.print(" X ");
                     hits.remove(0);
                 }
                 else
                 {
-                    System.out.print("     ");
+                    System.out.print("   ");
                 }
             }
         }
