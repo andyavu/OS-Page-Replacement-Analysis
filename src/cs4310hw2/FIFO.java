@@ -30,7 +30,9 @@ public class FIFO implements Replacement
     
     //**************************************************************************
     // Function : read()
-    // Purpose  : Reads data from reference string file
+    // Purpose  : Reads data from reference string file. The first line contains 
+    //            the total page frames and the second line contains the 
+    //            reference string
     //**************************************************************************
     @Override
     public void read()

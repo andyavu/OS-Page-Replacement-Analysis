@@ -10,8 +10,8 @@ package cs4310hw2;
 
 public interface Replacement 
 {
-    public void read();         // reads n reference string from ReferenceString.txt and stores info in appropriate data structures
+    public void read();         // reads reference string from .txt and stores info in appropriate data structures
     public void run();          // runs page replacement algorithm
-    public void printTable();   // prints page chart
+    public void printTable();   // prints page table
     public int getFaults();     // returns page faults
 }
