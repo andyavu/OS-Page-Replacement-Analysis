@@ -49,6 +49,11 @@ public class CS4310Hw2
                     break;
                 case 3:
                     System.out.println();
+                    Optimal opt = new Optimal();
+                    opt.read();
+                    opt.run();
+                    opt.printTable();
+                    System.out.println("Page Faults: " + opt.getFaults() + "\n");
                     break;
                 case 4:
                     analysis = true;

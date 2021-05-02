@@ -109,24 +109,13 @@ public class LRU implements Replacement
                             max = e;
                         }
                     }
-                    boolean flag = false;
-                    for(int j = 0; j < frames; ++j)
+                    for(int j = 0; j < ref.size(); ++j)
                     {
-                        if(flag)
+                        for(int k = 0; k < frames; ++k)
                         {
-                            break;
-                        }
-                        for(int k = j; k < ref.size(); ++k)
-                        {
-                            if(arr.get(j).get(k) == -1)
+                            if(arr.get(k).get(j) == max.getKey())
                             {
-                                break;
-                            }
-                            if(arr.get(j).get(k) == max.getKey())
-                            {
-                                curr = j;
-                                flag = true;
-                                break;
+                                curr = k;
                             }
                         }
                     }
