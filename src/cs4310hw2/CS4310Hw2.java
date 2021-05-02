@@ -3,9 +3,9 @@
 // Project     : Project 2
 // Course      : CS 4310
 // File        : CS4310Hw2.java
-// Description : Simulates page replacement manager and does performance analysis.
-//               The length of the reference string is always 30 and there are 
-//               8 pages (0 to 7)
+// Description : Simulates page replacement algorithms and does performance 
+//               analysis. The length of the reference string is always 30 and 
+//               there are 8 pages (0 to 7)
 //******************************************************************************
 
 package cs4310hw2;
@@ -41,6 +41,11 @@ public class CS4310Hw2
                     break;
                 case 2:
                     System.out.println();
+                    LRU lru = new LRU();
+                    lru.read();
+                    lru.run();
+                    lru.printTable();
+                    System.out.println("Page Faults: " + lru.getFaults() + "\n");
                     break;
                 case 3:
                     System.out.println();

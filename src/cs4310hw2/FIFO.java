@@ -46,7 +46,8 @@ public class FIFO implements Replacement
             }
             else
             {
-                sc = new Scanner(new File("reference strings/ReferenceString.txt"));
+//                sc = new Scanner(new File("reference strings/ReferenceString.txt"));
+                sc = new Scanner(new File("reference strings/test.txt"));
             }
             while(sc.hasNext())
             {
@@ -215,7 +216,7 @@ public class FIFO implements Replacement
     // Purpose  : Helper function to reformat numbers to in preparation for 
     //            printing
     //**************************************************************************
-    private void reformat()
+    public void reformat()
     {
         for(int i = 0; i < frames; ++i)
         {
@@ -239,7 +240,7 @@ public class FIFO implements Replacement
     // Purpose  : Helper function to check if page fault occurs. If entire 
     //            colummn is -1 return false, else return true
     //**************************************************************************
-    private boolean faultOccurs(int column)
+    public boolean faultOccurs(int column)
     {
         for(int i = 0; i < frames; ++i)
         {
