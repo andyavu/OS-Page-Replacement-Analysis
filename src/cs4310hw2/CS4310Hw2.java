@@ -59,7 +59,15 @@ public class CS4310Hw2
                     analysis = true;
                     System.out.print("\nEnter number of trials: ");
                     int trials = sc.nextInt();
-                    System.out.println();
+                    System.out.print("Enter reference string length: ");
+                    int length = sc.nextInt();
+                    System.out.print("Enter number of page frames: ");
+                    int frames = sc.nextInt();
+                    System.out.print("Enter number of pages: ");
+                    int pages = sc.nextInt();
+                    Analysis a = new Analysis(trials, length, frames, pages);
+                    a.run();
+                    a.analyze();
                     break;
                 case 5:
                     loop = false;

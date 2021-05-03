@@ -15,6 +15,7 @@ public class Optimal implements Replacement
 {
     private ArrayList<ArrayList<Integer>> arr;
     private ArrayList<Integer> ref;
+    private ArrayList<Integer> refCopy;
     private HashMap<Integer, Integer> map;
     private int faults;
     private int frames;
@@ -23,6 +24,7 @@ public class Optimal implements Replacement
     {
         arr = new ArrayList();
         ref = new ArrayList();
+        refCopy = new ArrayList();
         map = new HashMap();
         faults = 0;
         frames = 0;
@@ -62,6 +64,7 @@ public class Optimal implements Replacement
                     {
                         String num = Character.toString(str.charAt(i));
                         ref.add(Integer.parseInt(num));
+                        refCopy.add(Integer.parseInt(num));
                     }
                     for(int i = 0; i < frames; ++i)
                     {
@@ -101,23 +104,51 @@ public class Optimal implements Replacement
             {
                 if(map.size() == frames)
                 {
-                    Map.Entry<Integer, Integer> max = null;
+                    HashMap<Integer, Integer> possible = new HashMap();
                     for(Map.Entry<Integer, Integer> e : map.entrySet())
+                    {
+                        if(possible == null || e.getValue() >= frames)
+                        {
+                            possible.put(e.getKey(), 0);
+                            continue;
+                        }
+                    }
+                    for(Map.Entry<Integer, Integer> e : possible.entrySet())
+                    {
+                        for(int j = refCopy.size() - 1; j >= 0; --j)
+                        {
+                            if(e.getKey() == refCopy.get(j))
+                            {
+                                possible.put(e.getKey(), j);
+                                break;
+                            }
+                        }
+                    }
+                    System.out.println(possible.toString());
+                    Map.Entry<Integer, Integer> max = null;
+                    for(Map.Entry<Integer, Integer> e : possible.entrySet())
                     {
                         if(max == null || e.getValue().compareTo(max.getValue()) > 0)
                         {
+                            System.out.println(e.getKey() + ":" + e.getValue());
                             max = e;
                         }
                     }
-                    for(int j = 0; j < frames; ++j)
+                    for(int j = 0; j < ref.size(); ++j)
                     {
-                        if(arr.get(j).get(i) == max.getKey())
+                        for(int k = 0; k < frames; ++k)
                         {
-                            curr = j;
-                            break;
+                            if(arr.get(k).get(j) == max.getKey())
+                            {
+//                                System.out.println("curr=" + curr + " " + max.getKey() + ":" + max.getValue());
+                                curr = k;
+                            }
                         }
                     }
                     map.remove(max.getKey());
+                    System.out.println(refCopy.toString());
+                    refCopy.remove((int) max.getValue());
+                    System.out.println();
                 }
                 map.put(ref.get(i), 0);
                 for(Map.Entry<Integer, Integer> e : map.entrySet())
@@ -132,8 +163,7 @@ public class Optimal implements Replacement
             {
                 for(Map.Entry<Integer, Integer> e : map.entrySet())
                 {
-//                    map.put(e.getKey(), e.getValue() + 1);
-                    map.put(e.getKey(), 1);
+                    map.put(e.getKey(), e.getValue() + 1);
                 }
             }
         }
@@ -158,7 +188,7 @@ public class Optimal implements Replacement
             System.out.print(" " + ref.get(i) + " ");
         }
         System.out.println();
-        reformat();
+//        reformat();
         for(int i = 0; i < ref.size(); ++i)
         {
             System.out.print("---");

@@ -219,6 +219,7 @@ public class LRU implements Replacement
     // Purpose  : Helper function to reformat numbers to in preparation for 
     //            printing
     //**************************************************************************
+    @Override
     public void reformat()
     {
         for(int i = 0; i < frames; ++i)
@@ -243,6 +244,7 @@ public class LRU implements Replacement
     // Purpose  : Helper function to check if page fault occurs. If entire 
     //            colummn is -1 return false, else return true
     //**************************************************************************
+    @Override
     public boolean faultOccurs(int column)
     {
         for(int i = 0; i < frames; ++i)

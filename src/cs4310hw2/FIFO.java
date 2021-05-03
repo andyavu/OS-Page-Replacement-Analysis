@@ -109,12 +109,14 @@ public class FIFO implements Replacement
                             max = e;
                         }
                     }
-                    for(int j = 0; j < frames; ++j)
+                    for(int j = 0; j < ref.size(); ++j)
                     {
-                        if(arr.get(j).get(i) == max.getKey())
+                        for(int k = 0; k < frames; ++k)
                         {
-                            curr = j;
-                            break;
+                            if(arr.get(k).get(j) == max.getKey())
+                            {
+                                curr = k;
+                            }
                         }
                     }
                     map.remove(max.getKey());
@@ -216,6 +218,7 @@ public class FIFO implements Replacement
     // Purpose  : Helper function to reformat numbers to in preparation for 
     //            printing
     //**************************************************************************
+    @Override
     public void reformat()
     {
         for(int i = 0; i < frames; ++i)
@@ -240,6 +243,7 @@ public class FIFO implements Replacement
     // Purpose  : Helper function to check if page fault occurs. If entire 
     //            colummn is -1 return false, else return true
     //**************************************************************************
+    @Override
     public boolean faultOccurs(int column)
     {
         for(int i = 0; i < frames; ++i)
