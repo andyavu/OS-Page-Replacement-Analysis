@@ -17,6 +17,7 @@ public class CS4310Hw2
     
     public static void main(String args[]) 
     {
+        int frames = 0;
         Scanner sc = new Scanner(System.in);
         boolean loop = true;
         while(loop)
@@ -31,24 +32,27 @@ public class CS4310Hw2
             switch(command)
             {
                 case 1:
-                    System.out.println();
-                    FIFO fifo = new FIFO();
+                    System.out.print("\nEnter number of page frames: ");
+                    frames = sc.nextInt();
+                    FIFO fifo = new FIFO(frames);
                     fifo.read();
                     fifo.run();
                     fifo.printTable();
                     System.out.println("Page Faults: " + fifo.getFaults() + "\n");
                     break;
                 case 2:
-                    System.out.println();
-                    LRU lru = new LRU();
+                    System.out.print("\nEnter number of page frames: ");
+                    frames = sc.nextInt();
+                    LRU lru = new LRU(frames);
                     lru.read();
                     lru.run();
                     lru.printTable();
                     System.out.println("Page Faults: " + lru.getFaults() + "\n");
                     break;
                 case 3:
-                    System.out.println();
-                    Optimal opt = new Optimal();
+                    System.out.print("\nEnter number of page frames: ");
+                    frames = sc.nextInt();
+                    Optimal opt = new Optimal(frames);
                     opt.read();
                     opt.run();
                     opt.printTable();
@@ -63,8 +67,8 @@ public class CS4310Hw2
                     System.out.print("Enter number of pages: ");
                     int pages = sc.nextInt();
                     System.out.print("Enter number of page frames: ");
-                    int frames = sc.nextInt();
-                    Analysis a = new Analysis(trials, length, frames, pages);
+                    frames = sc.nextInt();
+                    Analysis a = new Analysis(trials, length, pages, frames);
                     a.run();
                     a.analyze();
                     break;

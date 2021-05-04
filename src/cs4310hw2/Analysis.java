@@ -22,15 +22,15 @@ public class Analysis
     private int frames;
     private int length;
     
-    public Analysis(int trials, int length, int frames, int pages)
+    public Analysis(int trials, int length, int pages, int frames)
     {
         fifoFaults = new ArrayList();
         lruFaults = new ArrayList();
         optFaults = new ArrayList();
         this.trials = trials;
         this.length = length;
-        this.frames = frames;
         this.pages = pages;
+        this.frames = frames;
     }
     
     //**************************************************************************
@@ -71,17 +71,17 @@ public class Analysis
         {
             generate();
             
-            FIFO fifo = new FIFO();
+            FIFO fifo = new FIFO(frames);
             fifo.read();
             fifo.run();
             fifoFaults.add(fifo.getFaults());
             
-            LRU lru = new LRU();
+            LRU lru = new LRU(frames);
             lru.read();
             lru.run();
             lruFaults.add(lru.getFaults());
             
-            Optimal opt = new Optimal();
+            Optimal opt = new Optimal(frames);
             opt.read();
             opt.run();
             optFaults.add(opt.getFaults());

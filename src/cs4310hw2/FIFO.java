@@ -19,13 +19,13 @@ public class FIFO implements Replacement
     private int faults;
     private int frames;
     
-    public FIFO()
+    public FIFO(int frames)
     {
         table = new ArrayList();
         ref = new ArrayList();
         map = new HashMap();
         faults = 0;
-        frames = 0;
+        this.frames = frames;
     }
     
     //**************************************************************************
@@ -51,17 +51,10 @@ public class FIFO implements Replacement
             while(sc.hasNext())
             {
                 String str = sc.nextLine();
-                if(str.length() == 1)
+                for(int i = 0; i < str.length(); ++i)
                 {
-                    frames = Integer.parseInt(str);
-                }
-                else
-                {
-                    for(int i = 0; i < str.length(); ++i)
-                    {
-                        String num = Character.toString(str.charAt(i));
-                        ref.add(Integer.parseInt(num));
-                    }
+                    String num = Character.toString(str.charAt(i));
+                    ref.add(Integer.parseInt(num));
                 }
             }
             for(int i = 0; i < frames; ++i)

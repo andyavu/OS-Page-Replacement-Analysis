@@ -20,14 +20,14 @@ public class Optimal implements Replacement
     private int faults;
     private int frames;
     
-    public Optimal()
+    public Optimal(int frames)
     {
         table = new ArrayList();
         ref = new ArrayList();
         refCopy = new ArrayList();
         map = new HashMap();
         faults = 0;
-        frames = 0;
+        this.frames = frames;
     }
     
     //**************************************************************************
@@ -53,28 +53,21 @@ public class Optimal implements Replacement
             while(sc.hasNext())
             {
                 String str = sc.nextLine();
-                if(str.length() == 1)
+                for(int i = 0; i < str.length(); ++i)
                 {
-                    frames = Integer.parseInt(str);
+                    String num = Character.toString(str.charAt(i));
+                    ref.add(Integer.parseInt(num));
+                    refCopy.add(Integer.parseInt(num));
                 }
-                else
+            }
+            for(int i = 0; i < frames; ++i)
+            {
+                ArrayList<Integer> temp = new ArrayList();
+                for(int j = 0; j < ref.size(); ++j)
                 {
-                    for(int i = 0; i < str.length(); ++i)
-                    {
-                        String num = Character.toString(str.charAt(i));
-                        ref.add(Integer.parseInt(num));
-                        refCopy.add(Integer.parseInt(num));
-                    }
-                    for(int i = 0; i < frames; ++i)
-                    {
-                        ArrayList<Integer> temp = new ArrayList();
-                        for(int j = 0; j < str.length(); ++j)
-                        {
-                            temp.add(-1);
-                        }
-                        table.add(temp);
-                    }
+                    temp.add(-1);
                 }
+                table.add(temp);
             }
             sc.close();
         }
