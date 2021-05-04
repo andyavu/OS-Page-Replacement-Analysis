@@ -81,7 +81,7 @@ public class Optimal implements Replacement
         }
         catch(Exception e)
         {
-            System.out.println("LRU.read()");
+            System.out.println("Optimal.read()");
             System.out.println(e.toString());
         }
     }
@@ -96,6 +96,8 @@ public class Optimal implements Replacement
         int curr = 0;
         for(int i = 0; i < ref.size(); ++i)
         {
+            System.out.println(refCopy.toString());
+            refCopy.remove(ref.get(i));
             if(curr == frames)
             {
                 curr = 0;
@@ -107,11 +109,7 @@ public class Optimal implements Replacement
                     HashMap<Integer, Integer> possible = new HashMap();
                     for(Map.Entry<Integer, Integer> e : map.entrySet())
                     {
-                        if(possible == null || e.getValue() >= frames)
-                        {
-                            possible.put(e.getKey(), 0);
-                            continue;
-                        }
+                        possible.put(e.getKey(), ref.size());
                     }
                     for(Map.Entry<Integer, Integer> e : possible.entrySet())
                     {
@@ -120,7 +118,6 @@ public class Optimal implements Replacement
                             if(e.getKey() == refCopy.get(j))
                             {
                                 possible.put(e.getKey(), j);
-                                break;
                             }
                         }
                     }
@@ -128,27 +125,23 @@ public class Optimal implements Replacement
                     Map.Entry<Integer, Integer> max = null;
                     for(Map.Entry<Integer, Integer> e : possible.entrySet())
                     {
-                        if(max == null || e.getValue().compareTo(max.getValue()) > 0)
+                        if(max == null || e.getValue() > max.getValue())
                         {
-                            System.out.println(e.getKey() + ":" + e.getValue());
                             max = e;
                         }
                     }
+                    System.out.println(max.getKey() + ":" + max.getValue());
                     for(int j = 0; j < ref.size(); ++j)
                     {
                         for(int k = 0; k < frames; ++k)
                         {
                             if(arr.get(k).get(j) == max.getKey())
                             {
-//                                System.out.println("curr=" + curr + " " + max.getKey() + ":" + max.getValue());
                                 curr = k;
                             }
                         }
                     }
                     map.remove(max.getKey());
-                    System.out.println(refCopy.toString());
-                    refCopy.remove((int) max.getValue());
-                    System.out.println();
                 }
                 map.put(ref.get(i), 0);
                 for(Map.Entry<Integer, Integer> e : map.entrySet())
@@ -166,6 +159,7 @@ public class Optimal implements Replacement
                     map.put(e.getKey(), e.getValue() + 1);
                 }
             }
+            System.out.println();
         }
     }
     
