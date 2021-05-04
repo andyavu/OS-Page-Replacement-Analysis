@@ -96,7 +96,6 @@ public class Optimal implements Replacement
         int last = 0;
         for(int i = 0; i < ref.size(); ++i)
         {
-            System.out.println(refCopy.toString());
             refCopy.remove(ref.get(i));
             if(curr == frames)
             {
@@ -121,7 +120,6 @@ public class Optimal implements Replacement
                             }
                         }
                     }
-                    System.out.println(possible.toString());
                     Map.Entry<Integer, Integer> max = null;
                     for(Map.Entry<Integer, Integer> e : possible.entrySet())
                     {
@@ -137,7 +135,6 @@ public class Optimal implements Replacement
                             }
                             else
                             {
-                                System.out.println("key=" + e.getKey() + " last=" + last);
                                 if(e.getKey() == last)
                                 {
                                     max = e;
@@ -146,7 +143,6 @@ public class Optimal implements Replacement
                             }
                         }
                     }
-                    System.out.println(max.getKey() + ":" + max.getValue());
                     for(int j = 0; j < ref.size(); ++j)
                     {
                         for(int k = 0; k < frames; ++k)
@@ -177,7 +173,6 @@ public class Optimal implements Replacement
                 }
                 last = ref.get(i);
             }
-            System.out.println();
         }
     }
     

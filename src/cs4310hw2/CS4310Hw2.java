@@ -4,8 +4,7 @@
 // Course      : CS 4310
 // File        : CS4310Hw2.java
 // Description : Simulates page replacement algorithms and does performance 
-//               analysis. The length of the reference string is always 30 and 
-//               there are 8 pages (0 to 7)
+//               analysis
 //******************************************************************************
 
 package cs4310hw2;
@@ -61,10 +60,10 @@ public class CS4310Hw2
                     int trials = sc.nextInt();
                     System.out.print("Enter reference string length: ");
                     int length = sc.nextInt();
-                    System.out.print("Enter number of page frames: ");
-                    int frames = sc.nextInt();
                     System.out.print("Enter number of pages: ");
                     int pages = sc.nextInt();
+                    System.out.print("Enter number of page frames: ");
+                    int frames = sc.nextInt();
                     Analysis a = new Analysis(trials, length, frames, pages);
                     a.run();
                     a.analyze();
