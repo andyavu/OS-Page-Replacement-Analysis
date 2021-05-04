@@ -3,7 +3,7 @@
 // Project     : Project 2
 // Course      : CS 4310
 // File        : Analysis.java
-// Description : Gernerates 50 sets of reference strings and performs analysis 
+// Description : Gernerates a number of reference strings and performs analysis 
 //               for each page replacement algorithm
 //******************************************************************************
 
@@ -17,9 +17,9 @@ public class Analysis
     private ArrayList<Integer> fifoFaults;
     private ArrayList<Integer> lruFaults;
     private ArrayList<Integer> optFaults;
-    private int frames;
     private int trials;
     private int pages;
+    private int frames;
     private int length;
     
     public Analysis(int trials, int length, int frames, int pages)
@@ -35,7 +35,9 @@ public class Analysis
     
     //**************************************************************************
     // Function : generate()
-    // Purpose  : Generates 'n' random integers and writes it into text file
+    // Purpose  : Generates random reference string given a number of pages and 
+    //            length. First line contains the number of page frames and 
+    //            second line contains the reference string
     //**************************************************************************
     private void generate()
     {
@@ -59,7 +61,7 @@ public class Analysis
     
     //**************************************************************************
     // Function : run()
-    // Purpose  : Perform X trials and calculate average of all page faults for 
+    // Purpose  : Perform X trials and calculate the average page faults for 
     //            each algorithm. A trial consists of generating reference 
     //            string and running it through each algorithm
     //**************************************************************************

@@ -3,7 +3,7 @@
 // Project     : Project 2
 // Course      : CS 4310
 // File        : LRU.java
-// Description : Least Recently Used algorithm
+// Description : Least Recently Used page replacement algorithm
 //******************************************************************************
 
 package cs4310hw2;
@@ -31,7 +31,7 @@ public class LRU implements Replacement
     //**************************************************************************
     // Function : read()
     // Purpose  : Reads data from reference string file. The first line contains 
-    //            the total page frames and the second line contains the 
+    //            number of page frames and the second line contains the 
     //            reference string
     //**************************************************************************
     @Override
@@ -143,7 +143,7 @@ public class LRU implements Replacement
     //**************************************************************************
     // Function : printTable()
     // Purpose  : Prints formatted table that includes the reference string, 
-    //            what pages are inside each page frame, when a page fault 
+    //            what pages are inside each page frame, and when a page fault 
     //            occurs (marked with an X)
     //**************************************************************************
     @Override
@@ -215,8 +215,7 @@ public class LRU implements Replacement
     
     //**************************************************************************
     // Function : reformat()
-    // Purpose  : Helper function to reformat numbers to in preparation for 
-    //            printing
+    // Purpose  : Helper function to reformat numbers for printing
     //**************************************************************************
     @Override
     public void reformat()

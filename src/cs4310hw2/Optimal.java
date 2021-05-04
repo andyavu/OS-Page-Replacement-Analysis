@@ -3,7 +3,7 @@
 // Project     : Project 2
 // Course      : CS 4310
 // File        : Optimal.java
-// Description : Optimal algorithm
+// Description : Optimal page replacement algorithm
 //******************************************************************************
 
 package cs4310hw2;
@@ -33,7 +33,7 @@ public class Optimal implements Replacement
     //**************************************************************************
     // Function : read()
     // Purpose  : Reads data from reference string file. The first line contains 
-    //            the total page frames and the second line contains the 
+    //            number of page frames and the second line contains the 
     //            reference string
     //**************************************************************************
     @Override
@@ -88,12 +88,13 @@ public class Optimal implements Replacement
     
     //**************************************************************************
     // Function : run()
-    // Purpose  : Peforms LRU page replacement algorithm
+    // Purpose  : Peforms Optimal page replacement algorithm
     //**************************************************************************
     @Override
     public void run()
     {
         int curr = 0;
+        int last = 0;
         for(int i = 0; i < ref.size(); ++i)
         {
             System.out.println(refCopy.toString());
@@ -125,9 +126,25 @@ public class Optimal implements Replacement
                     Map.Entry<Integer, Integer> max = null;
                     for(Map.Entry<Integer, Integer> e : possible.entrySet())
                     {
-                        if(max == null || e.getValue() > max.getValue())
+                        if(max == null)
                         {
                             max = e;
+                        }
+                        else if(e.getValue() >= max.getValue())
+                        {
+                            if(e.getValue() > max.getValue())
+                            {
+                                max = e;
+                            }
+                            else
+                            {
+                                System.out.println("key=" + e.getKey() + " last=" + last);
+                                if(e.getKey() == last)
+                                {
+                                    max = e;
+                                    break;
+                                }
+                            }
                         }
                     }
                     System.out.println(max.getKey() + ":" + max.getValue());
@@ -151,6 +168,7 @@ public class Optimal implements Replacement
                 arr.get(curr).set(i, ref.get(i));
                 ++faults;
                 ++curr;
+                last = ref.get(i);
             }
             else
             {
@@ -158,6 +176,7 @@ public class Optimal implements Replacement
                 {
                     map.put(e.getKey(), e.getValue() + 1);
                 }
+                last = ref.get(i);
             }
             System.out.println();
         }
@@ -166,7 +185,7 @@ public class Optimal implements Replacement
     //**************************************************************************
     // Function : printTable()
     // Purpose  : Prints formatted table that includes the reference string, 
-    //            what pages are inside each page frame, when a page fault 
+    //            what pages are inside each page frame, and when a page fault 
     //            occurs (marked with an X)
     //**************************************************************************
     @Override
@@ -182,7 +201,7 @@ public class Optimal implements Replacement
             System.out.print(" " + ref.get(i) + " ");
         }
         System.out.println();
-//        reformat();
+        reformat();
         for(int i = 0; i < ref.size(); ++i)
         {
             System.out.print("---");
@@ -238,8 +257,7 @@ public class Optimal implements Replacement
 
     //**************************************************************************
     // Function : reformat()
-    // Purpose  : Helper function to reformat numbers to in preparation for 
-    //            printing
+    // Purpose  : Helper function to reformat numbers for printing
     //**************************************************************************
     public void reformat()
     {
