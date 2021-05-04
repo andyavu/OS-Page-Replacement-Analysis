@@ -13,7 +13,7 @@ import java.io.*;
 
 public class Optimal implements Replacement
 {
-    private ArrayList<ArrayList<Integer>> arr;
+    private ArrayList<ArrayList<Integer>> table;
     private ArrayList<Integer> ref;
     private ArrayList<Integer> refCopy;
     private HashMap<Integer, Integer> map;
@@ -22,7 +22,7 @@ public class Optimal implements Replacement
     
     public Optimal()
     {
-        arr = new ArrayList();
+        table = new ArrayList();
         ref = new ArrayList();
         refCopy = new ArrayList();
         map = new HashMap();
@@ -72,7 +72,7 @@ public class Optimal implements Replacement
                         {
                             temp.add(-1);
                         }
-                        arr.add(temp);
+                        table.add(temp);
                     }
                 }
             }
@@ -105,23 +105,22 @@ public class Optimal implements Replacement
             {
                 if(map.size() == frames)
                 {
-                    HashMap<Integer, Integer> possible = new HashMap();
                     for(Map.Entry<Integer, Integer> e : map.entrySet())
                     {
-                        possible.put(e.getKey(), ref.size());
+                        map.put(e.getKey(), ref.size());
                     }
-                    for(Map.Entry<Integer, Integer> e : possible.entrySet())
+                    for(Map.Entry<Integer, Integer> e : map.entrySet())
                     {
                         for(int j = refCopy.size() - 1; j >= 0; --j)
                         {
                             if(e.getKey() == refCopy.get(j))
                             {
-                                possible.put(e.getKey(), j);
+                                map.put(e.getKey(), j);
                             }
                         }
                     }
                     Map.Entry<Integer, Integer> max = null;
-                    for(Map.Entry<Integer, Integer> e : possible.entrySet())
+                    for(Map.Entry<Integer, Integer> e : map.entrySet())
                     {
                         if(max == null)
                         {
@@ -147,7 +146,7 @@ public class Optimal implements Replacement
                     {
                         for(int k = 0; k < frames; ++k)
                         {
-                            if(arr.get(k).get(j) == max.getKey())
+                            if(table.get(k).get(j) == max.getKey())
                             {
                                 curr = k;
                             }
@@ -155,24 +154,12 @@ public class Optimal implements Replacement
                     }
                     map.remove(max.getKey());
                 }
-                map.put(ref.get(i), 0);
-                for(Map.Entry<Integer, Integer> e : map.entrySet())
-                {
-                    map.put(e.getKey(), e.getValue() + 1);
-                }
-                arr.get(curr).set(i, ref.get(i));
+                map.put(ref.get(i), ref.size());
+                table.get(curr).set(i, ref.get(i));
                 ++faults;
                 ++curr;
-                last = ref.get(i);
             }
-            else
-            {
-                for(Map.Entry<Integer, Integer> e : map.entrySet())
-                {
-                    map.put(e.getKey(), e.getValue() + 1);
-                }
-                last = ref.get(i);
-            }
+            last = ref.get(i);
         }
     }
     
@@ -203,15 +190,15 @@ public class Optimal implements Replacement
         System.out.println();
         for(int i = 0; i < frames; ++i)
         {
-            for(int j = 0; j < arr.get(i).size(); ++j)
+            for(int j = 0; j < table.get(i).size(); ++j)
             {
-                if(arr.get(i).get(j) == -1)
+                if(table.get(i).get(j) == -1)
                 {
                     System.out.print("   ");
                 }
                 else
                 {
-                    System.out.print(" " + arr.get(i).get(j) + " ");
+                    System.out.print(" " + table.get(i).get(j) + " ");
                 }
             }
             System.out.println();
@@ -253,20 +240,21 @@ public class Optimal implements Replacement
     // Function : reformat()
     // Purpose  : Helper function to reformat numbers for printing
     //**************************************************************************
+    @Override
     public void reformat()
     {
         for(int i = 0; i < frames; ++i)
         {
-            int num = arr.get(i).get(i);
+            int num = table.get(i).get(i);
             for(int j = i + 1; j < ref.size(); ++j)
             {
-                if(arr.get(i).get(j) == -1)
+                if(table.get(i).get(j) == -1)
                 {
-                    arr.get(i).set(j, num);
+                    table.get(i).set(j, num);
                 }
                 else
                 {
-                    num = arr.get(i).get(j);
+                    num = table.get(i).get(j);
                 }
             }
         }
@@ -277,11 +265,12 @@ public class Optimal implements Replacement
     // Purpose  : Helper function to check if page fault occurs. If entire 
     //            colummn is -1 return false, else return true
     //**************************************************************************
+    @Override
     public boolean faultOccurs(int column)
     {
         for(int i = 0; i < frames; ++i)
         {
-            if(arr.get(i).get(column) != -1)
+            if(table.get(i).get(column) != -1)
             {
                 return true;
             }

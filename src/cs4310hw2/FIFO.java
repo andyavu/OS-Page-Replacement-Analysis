@@ -13,7 +13,7 @@ import java.io.*;
 
 public class FIFO implements Replacement
 {
-    private ArrayList<ArrayList<Integer>> arr;
+    private ArrayList<ArrayList<Integer>> table;
     private ArrayList<Integer> ref;
     private HashMap<Integer, Integer> map;
     private int faults;
@@ -21,7 +21,7 @@ public class FIFO implements Replacement
     
     public FIFO()
     {
-        arr = new ArrayList();
+        table = new ArrayList();
         ref = new ArrayList();
         map = new HashMap();
         faults = 0;
@@ -62,16 +62,16 @@ public class FIFO implements Replacement
                         String num = Character.toString(str.charAt(i));
                         ref.add(Integer.parseInt(num));
                     }
-                    for(int i = 0; i < frames; ++i)
-                    {
-                        ArrayList<Integer> temp = new ArrayList();
-                        for(int j = 0; j < str.length(); ++j)
-                        {
-                            temp.add(-1);
-                        }
-                        arr.add(temp);
-                    }
                 }
+            }
+            for(int i = 0; i < frames; ++i)
+            {
+                ArrayList<Integer> temp = new ArrayList();
+                for(int j = 0; j < ref.size(); ++j)
+                {
+                    temp.add(-1);
+                }
+                table.add(temp);
             }
             sc.close();
         }
@@ -112,7 +112,7 @@ public class FIFO implements Replacement
                     {
                         for(int k = 0; k < frames; ++k)
                         {
-                            if(arr.get(k).get(j) == max.getKey())
+                            if(table.get(k).get(j) == max.getKey())
                             {
                                 curr = k;
                             }
@@ -125,7 +125,7 @@ public class FIFO implements Replacement
                 {
                     map.put(e.getKey(), e.getValue() + 1);
                 }
-                arr.get(curr).set(i, ref.get(i));
+                table.get(curr).set(i, ref.get(i));
                 ++faults;
                 ++curr;
             }
@@ -166,15 +166,15 @@ public class FIFO implements Replacement
         System.out.println();
         for(int i = 0; i < frames; ++i)
         {
-            for(int j = 0; j < arr.get(i).size(); ++j)
+            for(int j = 0; j < table.get(i).size(); ++j)
             {
-                if(arr.get(i).get(j) == -1)
+                if(table.get(i).get(j) == -1)
                 {
                     System.out.print("   ");
                 }
                 else
                 {
-                    System.out.print(" " + arr.get(i).get(j) + " ");
+                    System.out.print(" " + table.get(i).get(j) + " ");
                 }
             }
             System.out.println();
@@ -221,16 +221,16 @@ public class FIFO implements Replacement
     {
         for(int i = 0; i < frames; ++i)
         {
-            int num = arr.get(i).get(i);
+            int num = table.get(i).get(i);
             for(int j = i + 1; j < ref.size(); ++j)
             {
-                if(arr.get(i).get(j) == -1)
+                if(table.get(i).get(j) == -1)
                 {
-                    arr.get(i).set(j, num);
+                    table.get(i).set(j, num);
                 }
                 else
                 {
-                    num = arr.get(i).get(j);
+                    num = table.get(i).get(j);
                 }
             }
         }
@@ -246,7 +246,7 @@ public class FIFO implements Replacement
     {
         for(int i = 0; i < frames; ++i)
         {
-            if(arr.get(i).get(column) != -1)
+            if(table.get(i).get(column) != -1)
             {
                 return true;
             }
