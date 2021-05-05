@@ -47,6 +47,7 @@ public class FIFO implements Replacement
             else
             {
                 sc = new Scanner(new File("reference strings/ReferenceString.txt"));
+                frames = Integer.parseInt(sc.nextLine());
             }
             while(sc.hasNext())
             {
