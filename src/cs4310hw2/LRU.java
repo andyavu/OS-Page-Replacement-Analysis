@@ -46,7 +46,7 @@ public class LRU implements Replacement
             }
             else
             {
-                sc = new Scanner(new File("reference strings/ReferenceString.txt"));
+                sc = new Scanner(new File("reference strings/ReferenceStringImport.txt"));
                 frames = Integer.parseInt(sc.nextLine());
             }
             while(sc.hasNext())

@@ -43,14 +43,19 @@ public class Analysis
     {
         try
         {
-            FileWriter fw = new FileWriter("reference strings/ReferenceStringAnalysis.txt");
-            fw.write(frames + "\n");
+            FileWriter fw = new FileWriter("reference strings/ReferenceString.txt", true);
+            FileWriter fwa = new FileWriter("reference strings/ReferenceStringAnalysis.txt");
+//            fw.write(frames + "\n");
+            fwa.write(frames + "\n");
             Random r = new Random();
             for(int i = 0; i < length; ++i)
             {
                 fw.write(Integer.toString(r.nextInt(pages)));
+                fwa.write(Integer.toString(r.nextInt(pages)));
             }
+            fw.write("\n");
             fw.close();
+            fwa.close();
         }
         catch(Exception e)
         {
